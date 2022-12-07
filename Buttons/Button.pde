@@ -3,42 +3,69 @@ public class Button{
   private float y;
   private float widthField;
   private float heightField;
-  
+
   private color bgColor;
-  private color mouseOverColor;
   private color borderColor;
+
+  private color mouseOverColor;
+  private color mouseOverBorderColor;
+
   private color clickedColor;
-  
+  private color clickedBorderColor;
+
   private boolean mouseOver;
   private boolean clicked;
   
-  public Button(float x, float y, float widthField, float heightField){
+  private String text;
+
+  public Button(String text){
+    this.text = text;
+
+    this.x = 0;
+    this.y = 0;
+    this.widthField = 0;
+    this.heightField = 0;
+
+    this.bgColor = color(225, 225, 226);
+    this.borderColor = color(173, 173, 173);
+
+    this.mouseOverColor = color(229,241,251);
+    this.mouseOverBorderColor = color(0, 120, 215);
+    
+    this.clickedColor = color(204,228,247);
+    this.clickedBorderColor = color(0, 84, 153);
+
+    this.mouseOver = false;
+    this.clicked = false;
+  }
+
+  public void setBounds(float x, float y, float widthField, float heightField){
     this.x = x;
     this.y = y;
     this.widthField = widthField;
     this.heightField = heightField;
-    int r=224,g=194,b=134;
-    this.bgColor = color(224, 194, 134);
-    this.mouseOverColor = color(r-50,g-50,b-50);
-    this.clickedColor = color(r-100,g-100,b-100);
-    this.borderColor = color(0);
-    this.mouseOver = false;
-    this.clicked = false;
   }
   
   public void draw(){
     colorMode(RGB, 255, 255, 255);
-    stroke(borderColor);
     if(mouseOver){
       if(clicked){
+        stroke(clickedBorderColor);
         fill(clickedColor);
       }else{
+        stroke(mouseOverBorderColor);
         fill(mouseOverColor);
       }
     }else{
+      stroke(borderColor);
       fill(bgColor);
     }
     rect(x, y, widthField, heightField);
+
+    colorMode(RGB, 255);
+    fill(0);
+    textSize(20);
+    text(text, this.x + (this.widthField - textWidth(text))/2, this.y + (this.heightField)/2 );
   }
   
   public void mouseMoved(){
